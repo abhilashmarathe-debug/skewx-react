@@ -1,0 +1,272 @@
+/* ===== 1. THEME VARIABLES (SaaS Light Aesthetic) ===== */
+:root {
+  --bg-base:        #f8fafc; /* Clean slate light base background */
+  --bg-card:        #ffffff;
+  --bg-card-hover:  #ffffff;
+  --bg-nav:         rgba(255, 255, 255, 0.8);
+  --border:         #e2e8f0; /* Crisp Slate-200 border lines */
+  --border-accent:  rgba(79, 70, 229, 0.15); /* Soft indigo accent lines */
+  --text-primary:   #0f172a; /* Slate-900 typography */
+  --text-secondary: #475569; /* Slate-600 description layers */
+  --text-muted:     #94a3b8; /* Slate-400 flags */
+  --grid-line:      rgba(226, 232, 240, 0.4);
+  --noise-opacity:  0.008; /* Extremely faint grain */
+  --glass-bg:       rgba(255, 255, 255, 0.75);
+  --glass-bg2:      rgba(248, 250, 252, 0.5);
+  --input-bg:       #ffffff;
+  --select-bg:      #ffffff;
+  --modal-bg:       #ffffff;
+
+  --accent:         #4f46e5; /* Indigo-600 — primary brand accent */
+  --accent-hover:   #4338ca; /* Indigo-700 */
+  --accent-soft:    rgba(79, 70, 229, 0.08);
+  --accent-border:  rgba(79, 70, 229, 0.15);
+
+  --footer-bg:      #ffffff;
+  --footer-border:  #f1f5f9;
+}
+
+/* ===== 2. BASE PLATFORM RENDER ===== */
+html, body {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-base);
+  background-image:
+    radial-gradient(circle at 10% 10%, rgba(79, 70, 229, 0.035), transparent 45%),
+    radial-gradient(circle at 90% 90%, rgba(139, 92, 246, 0.03), transparent 45%);
+  color: var(--text-primary);
+  cursor: auto !important; /* Reverts custom canvas cursor locks to standard device behavior */
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: 'Poppins', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== 3. COMPONENT LAYOUT TIGHTENING ===== */
+main, #root {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Zeroes out unwanted white space above the footer site layout */
+.section-divider {
+  height: 0px !important;
+  width: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
+  opacity: 0 !important;
+}
+
+#contact {
+  margin-bottom: 0 !important;
+  padding-bottom: 80px;
+}
+
+#site-footer {
+  margin-top: 0 !important;
+}
+
+/* ===== 4. PREMIUM GRID & BACKGROUND LAYER ===== */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 48px 48px; /* Slightly tighter technical pattern */
+  z-index: -2;
+  pointer-events: none;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("https://www.transparenttextures.com/patterns/noise.png");
+  opacity: var(--noise-opacity);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.logo {
+  height: 90px; /* Standard structural SaaS header proportions */
+  width: auto;
+  transform: translateY(-5px);
+}
+
+/* ===== 5. TYPOGRAPHY & SELECTION ===== */
+h1, h2, h3, h4 {
+  letter-spacing: -0.025em;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+::selection {
+  background-color: rgba(79, 70, 229, 0.12) !important;
+  color: #1e1b4b !important;
+}
+
+/* ===== 6. MODERN GLASS INTERFACES ===== */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.01), 0 4px 20px -5px rgba(15,23,42,0.04);
+}
+
+/* ===== 7. STRIPE-STYLE NAVIGATION LINKS ===== */
+/* ===== PERFECT STRIPE-STYLE NAVIGATION ENGINE LINKS ===== */
+.nav-link {
+  position: relative;
+  color: #1e293b; /* Premium text slate-800 mapping */
+  padding: 6px 0;
+  display: inline-block;
+}
+
+.nav-link:hover {
+  color: #0891b2; /* cyan-600 color anchor */
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, #0891b2, #4f46e5); /* Gradient alignment bar underline match */
+  border-radius: 99px;
+  transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Custom alignment matrix pivots for standard modern hamburger nodes */
+.origin-custom-left {
+  transform-origin: 2px center;
+}
+
+/* ===== 8. MODERN BENTO FEATURES & CARDS ===== */
+.industry-card, .pricing-card, .service-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.industry-card:hover, .pricing-card:hover, .service-card:hover {
+  border-color: #e2e8f0;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px -5px rgba(15,23,42,0.04), 0 1px 3px rgba(79,70,229,0.03);
+}
+
+/* ===== 9. SAAS INTERACTIVE CONTROL BADGES ===== */
+.badge-yes, .badge-no, .badge-warn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.badge-yes  { background: var(--accent-soft); border: 1px solid var(--accent-border); color: var(--accent); }
+.badge-no   { background: #f8fafc; border: 1px solid #f1f5f9; color: #64748b; }
+.badge-warn { background: rgba(245, 158, 11, 0.06); border: 1px solid rgba(245, 158, 11, 0.12); color: #d97706; }
+
+/* ===== 10. LIGHT-THEMED INPUT SCALING ===== */
+.input, .contact-input, .mf-field {
+  width: 100%;
+  padding: 10px 14px;
+  background: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 8px;
+  outline: none;
+  color: var(--text-primary) !important;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+.input::placeholder, .contact-input::placeholder, .mf-field::placeholder {
+  color: #94a3b8 !important;
+}
+.input:focus, .contact-input:focus, .mf-field:focus {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1) !important;
+}
+
+/* ===== 11. SLIDER ELEMENTS ===== */
+input[type="range"] {
+  accent-color: var(--accent);
+}
+.roi-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  background: #f1f5f9;
+  border-radius: 99px;
+}
+.roi-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid #ffffff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 0 0 1px rgba(79,70,229,0.2);
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.2s;
+}
+.roi-range:hover::-webkit-slider-thumb {
+  transform: scale(1.1);
+  box-shadow: 0 0 0 6px rgba(79, 70, 229, 0.1);
+}
+
+/* ===== 12. PREMIUM DIALOG / MODAL PANEL ===== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.3); /* Soft dark blurring backdrop */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+.modal-box {
+  background: #ffffff;
+  border: 1px solid #f1f5f9;
+  border-radius: 24px;
+  padding: 36px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 20px 50px -12px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(0, 0, 0, 0.01);
+  transform: translateY(12px) scale(0.99);
+  opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.modal-overlay.open .modal-box {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+/* Cleanup layout elements targeting unused canvas components */
+.cursor, .cursor-follower, #cursorCanvas {
+  display: none !important;
+}

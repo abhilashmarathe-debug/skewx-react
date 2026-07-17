@@ -1,0 +1,7 @@
+node_modules/
+
+# Secrets - NEVER commit these
+service-account.json
+*.json
+!package.json
+.env
