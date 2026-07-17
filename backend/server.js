@@ -1,4 +1,3 @@
-
 /**
  * SkewX Backend Server
  */
@@ -21,34 +20,45 @@ const { logChatMessage } = require("./supabaseClient");
 const PORT = process.env.PORT || 3001;
 const LANGUAGE_CODE = process.env.LANGUAGE_CODE || "en";
 
-const SERVICE_ACCOUNT = path.join(
-  __dirname,
-  "service-account.json"
-);
-
 const ALLOWED_ORIGINS = [
   "http://localhost:5173",
   "http://localhost:4173",
   process.env.FRONTEND_URL,
+  "https://yourdomain.com",
+  "https://www.yourdomain.com",
 ].filter(Boolean);
 
 /* ────────────────────────────────────────────── */
-/* SERVICE ACCOUNT */
+/* GOOGLE CREDENTIALS */
 /* ────────────────────────────────────────────── */
 
-if (!fs.existsSync(SERVICE_ACCOUNT)) {
-  console.error(
-    "\n❌ service-account.json not found inside backend folder"
+let serviceAccount;
+
+if (process.env.GOOGLE_SERVICE_ACCOUNT) {
+  // Render
+  serviceAccount = JSON.parse(
+    process.env.GOOGLE_SERVICE_ACCOUNT
   );
-  process.exit(1);
+} else {
+  // Local Development
+  const SERVICE_ACCOUNT = path.join(
+    __dirname,
+    "service-account.json"
+  );
+
+  if (!fs.existsSync(SERVICE_ACCOUNT)) {
+    console.error(
+      "\n❌ service-account.json not found"
+    );
+    process.exit(1);
+  }
+
+  serviceAccount = JSON.parse(
+    fs.readFileSync(SERVICE_ACCOUNT, "utf8")
+  );
 }
 
-const serviceAccount = JSON.parse(
-  fs.readFileSync(SERVICE_ACCOUNT, "utf8")
-);
-
 const PROJECT_ID = serviceAccount.project_id;
-
 console.log(`✅ Project: ${PROJECT_ID}`);
 
 /* ────────────────────────────────────────────── */
@@ -57,7 +67,13 @@ console.log(`✅ Project: ${PROJECT_ID}`);
 
 const sessionClient =
   new dialogflow.SessionsClient({
-    keyFilename: SERVICE_ACCOUNT,
+    credentials: {
+      client_email:
+        serviceAccount.client_email,
+      private_key:
+        serviceAccount.private_key,
+    },
+    projectId: PROJECT_ID,
   });
 
 /* ────────────────────────────────────────────── */
