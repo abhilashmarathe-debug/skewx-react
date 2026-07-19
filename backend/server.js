@@ -24,8 +24,10 @@ const ALLOWED_ORIGINS = [
   "http://localhost:5173",
   "http://localhost:4173",
   process.env.FRONTEND_URL,
-  "https://yourdomain.com",
-  "https://www.yourdomain.com",
+  "https://skewx.com",
+  "https://www.skewx.com",
+  "https://skewx.com/",
+  "https://www.skewx.com/"
 ].filter(Boolean);
 
 /* ────────────────────────────────────────────── */
